@@ -30,7 +30,7 @@ describe("TodoList Test Suite", () => {
 
         const overdueItems = todo.overdue();
 
-        expect(overdueItems.length).toBe(0);
+        expect(overdueItems.length).toBe(1);
         expect(overdueItems[0]).toEqual(overdueTodo);
     });
 
@@ -40,7 +40,7 @@ describe("TodoList Test Suite", () => {
 
         const dueTodayItems = todo.dueToday();
 
-        expect(dueTodayItems.length).toBe(1);
+        expect(dueTodayItems.length).toBe();
         expect(dueTodayItems[0]).toEqual(dueTodayTodo);
     });
     
