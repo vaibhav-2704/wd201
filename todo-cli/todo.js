@@ -33,7 +33,6 @@ const todoList = () => {
     
     
     
-
     const dueLater = () => {
         const currentDate = new Date().toDateString();
         return all.filter((item) => new Date(item.dueDate).toDateString() > currentDate);
