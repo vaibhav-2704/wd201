@@ -1,9 +1,10 @@
-/* eslint-disable no-undef */
 const todoList = () => {
     const all = [];
+
     const add = (todoItem) => {
         all.push(todoItem);
     };
+
     const markAsComplete = (index) => {
         if (index >= 0 && index < all.length) {
             all[index].completed = true;
@@ -13,57 +14,42 @@ const todoList = () => {
     };
 
     const overdue = () => {
-        return all.filter(
-            (item) => item.dueDate < new Date().toLocaleDateString("en-CA")
-        );
+        const currentDate = new Date();
+        return all.filter((item) => new Date(item.dueDate) < currentDate);
     };
 
     const dueToday = () => {
-        return all.filter(
-            (item) => item.dueDate === new Date().toLocaleDateString("en-CA")
-        );
+        const currentDate = new Date().toDateString();
+        const dueTodayTasks = all.filter((item) => {
+            const itemDate = new Date(item.dueDate).toDateString();
+            console.log(`itemDate: ${itemDate}, currentDate: ${currentDate}`);
+            return itemDate === currentDate;
+        });
+    
+        console.log('dueTodayTasks:', dueTodayTasks);
+    
+        return dueTodayTasks;
     };
-
+    
+    
+    
     const dueLater = () => {
-        return all.filter(
-            (item) => item.dueDate > new Date().toLocaleDateString("en-CA")
-        );
+        const currentDate = new Date().toDateString();
+        return all.filter((item) => new Date(item.dueDate).toDateString() > currentDate);
     };
 
     const toDisplayableList = (list) => {
+        const today = new Date().toDateString();
         const dsl = [];
+
         list.forEach((element) => {
-            if (element.dueDate === today) {
-                if (element.completed === true) {
-                    const a = "[x] " + element.title;
-                    dsl.push(a);
-                } else {
-                    const a = "[ ] " + element.title;
-                    dsl.push(a);
-                }
-            } else {
-                if (element.completed === true) {
-                    const a = "[x] " + element.title + " " + element.dueDate;
-                    dsl.push(a);
-                } else {
-                    const a = "[ ] " + element.title + " " + element.dueDate;
-                    dsl.push(a);
-                }
-            }
+            const status = element.completed ? "[x]" : "[ ]";
+            const formattedDate = element.dueDate === today ? "" : ` ${element.dueDate}`;
+            const displayableItem = `${status} ${element.title}${formattedDate}`;
+            dsl.push(displayableItem);
         });
-        let g = "";
-        for (let i = 0; i < dsl.length; i++) {
-            // eslint-disable-next-line no-undef
-            obj = dsl[i];
-            if (i === 0) {
-                // eslint-disable-next-line no-undef
-                g = g + obj;
-            } else {
-                // eslint-disable-next-line no-undef
-                g = g + "\n" + obj;
-            }
-        }
-        return g;
+
+        return dsl.join('\n');
     };
 
     return {
