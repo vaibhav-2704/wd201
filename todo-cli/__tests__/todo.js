@@ -41,7 +41,7 @@ describe("TodoList Test Suite", () => {
         const dueTodayItems = todo.dueToday();
 
         expect(dueTodayItems.length).toBe(1);
-        expect(dueTodayItems[0]).toEqual(dueTodayTodo);
+        expect(dueTodayItems[1]).toEqual(dueTodayTodo);
     });
     
     
