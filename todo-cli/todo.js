@@ -19,19 +19,10 @@ const todoList = () => {
     };
 
     const dueToday = () => {
-        const currentDate = new Date().toDateString();
-        const dueTodayTasks = all.filter((item) => {
-            const itemDate = new Date(item.dueDate).toDateString();
-            console.log(`itemDate: ${itemDate}, currentDate: ${currentDate}`);
-            return itemDate === currentDate;
-        });
-    
-        console.log('dueTodayTasks:', dueTodayTasks);
-    
-        return dueTodayTasks;
+        return all.filter(
+            (item) => item.dueDate === new Date().toLocaleDateString("en-CA")
+        );
     };
-    
-    
     
     const dueLater = () => {
         const currentDate = new Date().toDateString();
