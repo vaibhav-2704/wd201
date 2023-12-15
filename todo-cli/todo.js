@@ -19,30 +19,27 @@ const todoList = () => {
     };
 
     const dueToday = () => {
-        const currentDate = new Date();
-        return all.filter((item) => new Date(item.dueDate).toDateString() === currentDate.toDateString());
+        const currentDate = new Date().toDateString();
+        return all.filter((item) => new Date(item.dueDate).toDateString() === currentDate);
     };
 
     const dueLater = () => {
-        const currentDate = new Date();
-        return all.filter((item) => new Date(item.dueDate) > currentDate);
+        const currentDate = new Date().toDateString();
+        return all.filter((item) => new Date(item.dueDate).toDateString() > currentDate);
     };
 
     const toDisplayableList = (list) => {
+        const today = new Date().toDateString();
         const dsl = [];
-        list.forEach((element) => {
-            const dueDate = new Date(element.dueDate).toLocaleDateString("en-CA");
 
-            if (dueDate === today) {
-                // your existing logic
-            } else {
-                // your existing logic
-            }
+        list.forEach((element) => {
+            const status = element.completed ? "[x]" : "[ ]";
+            const formattedDate = element.dueDate === today ? "" : ` ${element.dueDate}`;
+            const displayableItem = `${status} ${element.title}${formattedDate}`;
+            dsl.push(displayableItem);
         });
 
-        // your existing loop logic
-
-        return g;
+        return dsl.join('\n');
     };
 
     return {
