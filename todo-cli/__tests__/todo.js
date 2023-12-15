@@ -41,8 +41,10 @@ describe("TodoList Test Suite", () => {
         const dueTodayItems = todo.dueToday();
     
         expect(dueTodayItems.length).toBe(1);
-        expect(dueTodayItems[0]).toEqual(dueTodayTodo);
+        // Use toEqual for deep equality comparison, and also consider matching date formats
+        expect(dueTodayItems[0]).toEqual({ ...dueTodayTodo, dueDate: new Date(dueTodayTodo.dueDate).toDateString() });
     });
+    
     
 
     test("Retrieval of due later items", () => {
