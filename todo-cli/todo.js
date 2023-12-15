@@ -20,8 +20,17 @@ const todoList = () => {
 
     const dueToday = () => {
         const currentDate = new Date().toDateString();
-        return all.filter((item) => new Date(item.dueDate).toDateString() === currentDate);
+        const dueTodayTasks = all.filter((item) => {
+            const itemDate = new Date(item.dueDate).toDateString();
+            console.log(`itemDate: ${itemDate}, currentDate: ${currentDate}`);
+            return itemDate === currentDate;
+        });
+    
+        console.log('dueTodayTasks:', dueTodayTasks);
+    
+        return dueTodayTasks;
     };
+    
     
 
     const dueLater = () => {
