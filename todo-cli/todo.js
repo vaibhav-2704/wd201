@@ -22,6 +22,7 @@ const todoList = () => {
         const currentDate = new Date().toDateString();
         return all.filter((item) => new Date(item.dueDate).toDateString() === currentDate);
     };
+    
 
     const dueLater = () => {
         const currentDate = new Date().toDateString();
