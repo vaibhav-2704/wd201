@@ -35,19 +35,13 @@ describe("TodoList Test Suite", () => {
     });
 
     test("Retrieval of due today items", () => {
+        const dueTodayTodo = { title: 'Clean room', dueDate: '2023-12-13', completed: false };
+        todo.add(dueTodayTodo);
+
         const dueTodayItems = todo.dueToday();
-        expect(dueTodayItems).toContainEqual({
-            title: 'Clean room',
-            dueDate: '2023-12-13',
-            completed: false,
-          });
-          
-        expect(dueTodayItems[0]).toEqual({
-            ...dueTodayTodo,
-            dueDate: new Date(dueTodayTodo.dueDate).toDateString(),
-        });
-        const expectedDate = new Date(dueTodayTodo.dueDate).toDateString();
-        expect(dueTodayItems[0].dueDate).toBe(expectedDate);
+
+        expect(dueTodayItems.length).toBe(1);
+        expect(dueTodayItems[0]).toEqual(dueTodayTodo);
     });
     
     
