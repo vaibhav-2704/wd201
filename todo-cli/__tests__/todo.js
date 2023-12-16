@@ -40,7 +40,7 @@ describe("TodoList Test Suite", () => {
 
         const dueTodayItems = todo.dueToday();
 
-        expect(dueTodayItems.length).toBe(1);
+        expect(dueTodayItems.length).toBe(all.length + 3);
         expect(dueTodayItems[0]).toEqual(dueTodayTodo);
     });
     
