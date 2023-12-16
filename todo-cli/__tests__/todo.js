@@ -1,58 +1,61 @@
 /* eslint-disable no-undef */
 const todoList = require("../todo");
 
-describe("TodoList Test Suite", () => {
-    let todo;
+const { add, markAsComplete, all, dueToday, dueLater, overdue } = todoList();
 
-    beforeEach(() => {
-        todo = todoList();
+describe("Todo test suite", () => {
+  test("should add new todo", () => {
+    expect(all.length).toBe(0);
+    const date = new Date();
+    const yd = new Date(date);
+    const td = new Date(date);
+    td.setDate(date.getDate() + 1);
+    yd.setDate(date.getDate() - 1);
+    add({
+      title: "Todo test",
+      completed: false,
+      dueDate: new Date().toLocaleDateString("en-CA"),
     });
-
-    test("Creating a new todo", () => {
-        const newTodo = { title: "Buy groceries", dueDate: '2023-12-15' };
-        todo.add(newTodo);
-
-        expect(todo.all.length).toBe(1);
-        expect(todo.all[0]).toEqual(newTodo);
+    add({
+      title: "Todo test",
+      completed: false,
+      dueDate: yd.toLocaleDateString("en-CA"),
     });
-
-    test("Marking a todo as completed", () => {
-        const newTodo = { title: 'Finish report', dueDate: '2023-12-14', completed: false };
-        todo.add(newTodo);
-        todo.markAsComplete(0);
-
-        expect(todo.all[0].completed).toBe(true);
+    add({
+      title: "Todo test",
+      completed: false,
+      dueDate: td.toLocaleDateString("en-CA"),
     });
+    expect(all.length).toBe(3);
+  });
 
-    test("Retrieval of overdue items", () => {
-        const overdueTodo = { title: 'Pay bills', dueDate: '2023-12-12', completed: false };
-        todo.add(overdueTodo);
+  test("should mark a todo as complete", () => {
+    // Ensure the todo is initially marked as incomplete
+    expect(all[0].completed).toBe(false);
 
-        const overdueItems = todo.overdue();
+    // Mark the todo as complete
+    markAsComplete(0);
 
-        expect(overdueItems.length).toBe(1);
-        expect(overdueItems[0]).toEqual(overdueTodo);
-    });
+    // Ensure the todo is now marked as complete
+    expect(all[0].completed).toBe(true);
+  });
 
-    test("Retrieval of due today items", () => {
-        const dueTodayTodo = { title: 'Clean room', dueDate: '2023-12-13', completed: false };
-        todo.add(dueTodayTodo);
-
-        const dueTodayItems = todo.dueToday();
-
-        expect(all.length).toBe(all.length + 3);
-        expect(dueTodayItems[0]).toEqual(dueTodayTodo);
-    });
-    
-    
-
-    test("Retrieval of due later items", () => {
-        const dueLaterTodo = { title: 'Call dentist', dueDate: '2023-12-14', completed: false };
-        todo.add(dueLaterTodo);
-
-        const dueLaterItems = todo.dueLater();
-
-        expect(dueLaterItems.length).toBe(1);
-        expect(dueLaterItems[0]).toEqual(dueLaterTodo);
-    });
+  test("should retrive a todo as duetoday", () => {
+    expect(all.length).toBe(3);
+    const k = dueToday();
+    console.log(k);
+    expect(k.length).toBe(1);
+  });
+  test("should retrive a todo as overdue", () => {
+    let k = [];
+    expect(k.length).toBe(0);
+    k = overdue();
+    expect(k.length).toBe(1);
+  });
+  test("should retrive a todo as laterdue", () => {
+    let k = [];
+    expect(k.length).toBe(0);
+    k = dueLater();
+    expect(k.length).toBe(1);
+  });
 });
