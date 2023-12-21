@@ -3,7 +3,7 @@ let todos
 todos=todoList();
 
 describe("Todolist", () => {
-    test("Should add new todo", () => {
+    test("To add new todo list:", () => {
         const todoItemsCount = todos.all.length;
         todos.add(
             {
@@ -14,12 +14,12 @@ describe("Todolist", () => {
         );
         expect(todos.all.length).toBe(todoItemsCount + 1);
     });
-    test("mark the todo as complete", () => {
+    test("marking the todo as completed", () => {
         expect(todos.all[0].completed).toBe(false);
         todos.markAsComplete(0);
         expect(todos.all[0].completed).toBe(true);
     });
-    test('The items are overdue', () => {
+    test('items overdue', () => {
     const dateToday = new Date();
     const formattedDate = (d) => d.toISOString().split('T')[0]
     const yesterday = formattedDate(new Date(dateToday.setDate(dateToday.getDate() - 1)));
@@ -30,7 +30,7 @@ describe("Todolist", () => {
     expect(overdueItems.length).toBe(overdueic+1);
   });
 
-  test('The items are duetoday', () => {
+  test('Items are duetoday', () => {
     const dateToday = new Date();
     const formattedDate = (d) => d.toISOString().split('T')[0];
     const today = formattedDate(dateToday);
@@ -41,7 +41,7 @@ describe("Todolist", () => {
     expect(todayItems.length).toBe(duetic+1);
   });
 
-  test('The items are duelater', () => {
+  test('Items are duelater', () => {
     const dateToday = new Date();
     const formattedDate = (d) => d.toISOString().split('T')[0];
     const tomorrow = formattedDate(new Date(dateToday.setDate(dateToday.getDate() + 1)));
